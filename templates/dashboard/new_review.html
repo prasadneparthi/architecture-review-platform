@@ -1,0 +1,1013 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+New Architecture Review
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">
+        New Architecture Review
+    </h2>
+
+    <div class="alert alert-info">
+        Fields marked with <span class="text-danger">*</span> are required.
+    </div>
+
+    <form id="review-form" onsubmit="submitReview(event)">
+
+        <!-- ===================================================== -->
+        <!-- System Information -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    System Information
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            System Name
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input
+                            id="system-name"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Architecture Type
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select
+                            id="architecture-type"
+                            class="form-select"
+                            required
+                        >
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option value="Monolith">
+                                Monolith
+                            </option>
+
+                            <option value="Microservices">
+                                Microservices
+                            </option>
+
+                            <option value="Serverless">
+                                Serverless
+                            </option>
+
+                            <option value="Event Driven">
+                                Event Driven
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Services -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0">
+                    Services
+                </h5>
+
+                <button
+                    type="button"
+                    id="add-service"
+                    class="btn btn-primary btn-sm"
+                >
+                    + Add Service
+                </button>
+
+            </div>
+
+            <div
+                class="card-body"
+                id="services-container"
+            >
+
+            </div>
+
+        </div>
+                <!-- ===================================================== -->
+        <!-- Databases -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0">
+                    Databases
+                </h5>
+
+                <button
+                    type="button"
+                    id="add-database"
+                    class="btn btn-primary btn-sm"
+                >
+                    + Add Database
+                </button>
+
+            </div>
+
+            <div
+                class="card-body"
+                id="databases-container"
+            >
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Load Balancer -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    Load Balancer
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Enabled
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select
+                            id="lb-enabled"
+                            class="form-select"
+                            
+                        >
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Health Checks
+                        </label>
+
+                        <select
+                            id="lb-health-checks"
+                            class="form-select"
+                        >
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Cache -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    Cache
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+                            Enabled
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select
+                            id="cache-enabled"
+                            class="form-select"
+                        >
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+                            Cache Type
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select
+                            id="cache-type"
+                            class="form-select"
+                            required
+                        >
+                            <option value="Redis">Redis</option>
+                            <option value="Memcached">Memcached</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+                            Invalidation Strategy
+                        </label>
+
+                        <select
+                            id="cache-invalidation"
+                            class="form-select"
+                        >
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Message Queue -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    Message Queue
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+                            Enabled
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select
+                            id="mq-enabled"
+                            class="form-select"
+                        >
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+                            Queue Type
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select
+                            id="mq-type"
+                            class="form-select"
+                            required
+                        >
+                            <option value="RabbitMQ">RabbitMQ</option>
+                            <option value="Kafka">Kafka</option>
+                            <option value="SQS">AWS SQS</option>
+                            <option value="Azure Service Bus">Azure Service Bus</option>
+                            <option value="Google Pub/Sub">Google Pub/Sub</option>
+                            <option value="redis Streams">redis streams</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label class="form-label">
+                            Retry Enabled
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select
+                            id="mq-retry"
+                            class="form-select"
+                        >
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+                <!-- ===================================================== -->
+        <!-- Security -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    Security
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Authentication
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select id="authentication" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Authentication Type
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select id="authentication-type" class="form-select" required>
+                            <option>JWT</option>
+                            <option>OAuth2</option>
+                            <option>Session</option>
+                            <option>API Key</option>
+                            <option>Basic Auth</option>
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Authorization
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select id="authorization" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Authorization Model
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <select id="authorization-model" 
+                                class="form-select"
+                                required>
+                            <option>RBAC</option>
+                            <option>ABAC</option>
+                            <option>PBAC</option>
+                            <option>ACL</option>
+                            <option>Other</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">HTTPS <span class="text-danger">*</span></label>
+                        <select id="https" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Encrypt At Rest <span class="text-danger">*</span></label>
+                        <select id="encrypt-at-rest" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Rate Limiting <span class="text-danger">*</span></label>
+                        <select id="rate-limiting" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Input Validation <span class="text-danger">*</span></label>
+                        <select id="input-validation" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Secret Management <span class="text-danger">*</span></label>
+                        <select id="secret-management" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Default Credentials <span class="text-danger">*</span></label>
+                        <select id="default-credentials" class="form-select">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 mb-3">
+                        <label class="form-label">CORS</label>
+                        <select id="cors" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 mb-3">
+                        <label class="form-label">Security Headers</label>
+                        <select id="security-headers" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Monitoring -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    Monitoring
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Enabled <span class="text-danger">*</span></label>
+                        <select id="monitoring-enabled" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Centralized Logging <span class="text-danger">*</span></label>
+                        <select id="centralized-logging" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Alerting</label>
+                        <select id="alerting" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Status Endpoint</label>
+                        <select id="status-endpoint" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Resilience -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">Resilience</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Retry Enabled <span class="text-danger">*</span></label>
+                        <select id="retry-enabled" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Timeouts <span class="text-danger">*</span></label>
+                        <select id="timeouts" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Circuit Breaker</label>
+                        <select id="circuit-breaker" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Graceful Degradation</label>
+                        <select id="graceful-degradation" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Backup -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">Backup</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Enabled <span class="text-danger">*</span></label>
+                        <select id="backup-enabled" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Restore Tested <span class="text-danger">*</span></label>
+                        <select id="restore-tested" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">RTO/RPO Defined</label>
+                        <select id="rto-rpo" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">DR Documented</label>
+                        <select id="dr-documented" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+                <!-- ===================================================== -->
+        <!-- API -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">API</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Pagination <span class="text-danger">*</span></label>
+                        <select id="pagination" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Compression</label>
+                        <select id="compression" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Versioning</label>
+                        <select id="versioning" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Deployment -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">Deployment</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Rollback <span class="text-danger">*</span></label>
+                        <select id="rollback" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">CI/CD <span class="text-danger">*</span></label>
+                        <select id="cicd" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Repeatable Releases <span class="text-danger">*</span></label>
+                        <select id="repeatable-releases" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Zero Downtime</label>
+                        <select id="zero-downtime" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Safe DB Migration</label>
+                        <select id="safe-db-migration" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Architecture -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">Architecture</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Layered Design <span class="text-danger">*</span></label>
+                        <select id="layered-design" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Separation of Concerns <span class="text-danger">*</span></label>
+                        <select id="separation-of-concerns" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Interface Definition</label>
+                        <select id="interface-definition" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Loose Coupling <span class="text-danger">*</span></label>
+                        <select id="loose-coupling" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Testing -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">Testing</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Unit Tests <span class="text-danger">*</span></label>
+                        <select id="unit-tests" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Integration Tests <span class="text-danger">*</span></label>
+                        <select id="integration-tests" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">API Tests</label>
+                        <select id="api-tests" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Component Testability <span class="text-danger">*</span></label>
+                        <select id="component-testability" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Documentation -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">Documentation</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">API Docs <span class="text-danger">*</span></label>
+                        <select id="api-docs" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Architecture Docs <span class="text-danger">*</span></label>
+                        <select id="architecture-docs" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Deployment Docs</label>
+                        <select id="deployment-docs" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Operations Docs</label>
+                        <select id="operations-docs" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- Configuration -->
+        <!-- ===================================================== -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+                <h5 class="mb-0">Configuration</h5>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Externalized <span class="text-danger">*</span></label>
+                        <select id="externalized" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Environment Support <span class="text-danger">*</span></label>
+                        <select id="environment-support" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">Centralized</label>
+                        <select id="centralized" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label">No Hardcoded Values <span class="text-danger">*</span></label>
+                        <select id="no-hardcoded-values" class="form-select">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="text-end mb-5">
+
+            <button
+                type="submit"
+                class="btn btn-success btn-lg"
+            >
+                Analyze Architecture
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script src="{% static 'js/review.js' %}"></script>
+
+{% endblock %}

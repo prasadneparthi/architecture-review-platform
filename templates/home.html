@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<div class="text-center mt-5">
+
+    <h1 class="display-4 fw-bold">
+
+        Architecture Review Platform
+
+    </h1>
+
+    <p class="lead mt-3">
+
+        AI-powered architecture assessment with scoring,
+        recommendations and PDF reports.
+
+    </p>
+
+    <div
+        class="mt-4"
+        id="home-buttons"
+    >
+
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const token = localStorage.getItem("access");
+
+    const buttons = document.getElementById("home-buttons");
+
+    if (token) {
+
+        buttons.innerHTML = `
+
+            <a
+                href="/dashboard/"
+                class="btn btn-primary btn-lg"
+            >
+                Go to Dashboard
+            </a>
+
+        `;
+
+    }
+
+    else {
+
+        buttons.innerHTML = `
+
+            <a
+                href="/register/"
+                class="btn btn-primary btn-lg me-2"
+            >
+                Get Started
+            </a>
+
+            <a
+                href="/login/"
+                class="btn btn-outline-dark btn-lg"
+            >
+                Login
+            </a>
+
+        `;
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,1 @@
+console.log("Architecture Review Platform Loaded");

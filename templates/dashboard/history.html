@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Review History
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">
+
+        Review History
+
+    </h2>
+
+    <div id="history-table">
+
+        Loading...
+
+    </div>
+
+</div>
+
+<script src="{% static 'js/history.js' %}"></script>
+
+{% endblock %}
