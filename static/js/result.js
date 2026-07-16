@@ -1,6 +1,9 @@
 const review = JSON.parse(
     sessionStorage.getItem("review_result")
 );
+const params = new URLSearchParams(window.location.search);
+const fromHistory=
+    params.get("from")=="history";
 
 const report = document.getElementById("report");
 
@@ -372,6 +375,81 @@ else {
 const llmSection =
     document.getElementById("llm-section");
 
+let llmContent = "";
+
+if (
+    typeof review.llm_analysis === "object" &&
+    review.llm_analysis !== null
+) {
+
+    llmContent = `
+
+        <h6>Executive Summary</h6>
+        <p>${review.llm_analysis.executive_summary}</p>
+
+        <h6>Overall Assessment</h6>
+        <p>${review.llm_analysis.overall_assessment}</p>
+
+        <h6>Architecture Maturity</h6>
+
+        <p>
+            <strong>Level:</strong>
+            ${review.llm_analysis.architecture_maturity.level}
+            <br>
+            <strong>Reason:</strong>
+            ${review.llm_analysis.architecture_maturity.reason}
+        </p>
+
+        <h6>Future Focus</h6>
+
+        <ul>
+
+            ${review.llm_analysis.future_focus
+                .map(item => `<li>${item}</li>`)
+                .join("")}
+
+        </ul>
+
+        <h6>Review Confidence</h6>
+
+        <p>
+
+            <strong>Level:</strong>
+
+            ${review.llm_analysis.review_confidence.level}
+
+            <br>
+
+            <strong>Reason:</strong>
+
+            ${review.llm_analysis.review_confidence.reason}
+
+        </p>
+
+    `;
+
+}
+else {
+
+    llmContent = `
+
+        <div class="alert alert-secondary mb-0">
+
+            <strong>AI Analysis Not Available</strong>
+
+            <br>
+
+            ${
+                review.llm_analysis ||
+                "LLM-based analysis was not enabled for this review. This report contains rule-engine results only."
+            }
+
+        </div>
+
+    `;
+
+}
+
 llmSection.innerHTML = `
 
 <div class="card shadow-sm mb-4">
@@ -388,14 +466,7 @@ llmSection.innerHTML = `
 
     <div class="card-body">
 
-        <p class="mb-0">
-
-            ${
-                review.llm_analysis ||
-                "AI analysis was not generated."
-            }
-
-        </p>
+        ${llmContent}
 
     </div>
 
@@ -412,10 +483,10 @@ actionSection.innerHTML = `
 <div class="d-flex justify-content-between mb-5">
 
     <a
-        href="/dashboard/"
+        href="${fromHistory ? "/history/" : "/dashboard/"}"
         class="btn btn-secondary"
     >
-        Back to Dashboard
+        ${fromHistory ? "Back to History" : "Back to Dashboard"}
     </a>
 
     <a

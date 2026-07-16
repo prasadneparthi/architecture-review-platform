@@ -169,7 +169,7 @@ async function viewReview(reviewId) {
         JSON.stringify(report)
     );
 
-    window.location.href = "/review/result/";
+    window.location.href = "/review/result/?from=history";
 }
 async function deleteReview(reviewId) {
 

@@ -715,9 +715,10 @@ async function submitReview(event) {
             "review_result",
             JSON.stringify(data)
         );
+        
 
         window.location.href =
-            "/review/result/";
+            "/review/result/?from=new";
 
     }
     else {
