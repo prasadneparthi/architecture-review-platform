@@ -3,12 +3,13 @@ MongoDB Configuration
 
 Centralized MongoDB configuration used across the project.
 """
+import os
 
 # ==========================================================
 # Connection
 # ==========================================================
 
-MONGODB_URI = "mongodb://localhost:27017"
+MONGODB_URI = os.getenv("MONGO_URI")
 
 
 # ==========================================================
