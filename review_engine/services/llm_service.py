@@ -19,7 +19,8 @@ Does NOT
 
 import json
 
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 from review_engine.config.llm_constants import (
     MODEL_NAME,
@@ -49,21 +50,15 @@ class LLMService:
 
     def __init__(self, api_key: str):
 
-        genai.configure(
-            api_key=api_key
-        )
+        self.client = genai.Client(api_key=api_key)
         logger.info("Sending request to Gemini.")
-        self.model = genai.GenerativeModel(
-            model_name=MODEL_NAME,
-
-            generation_config={
-                "temperature": TEMPERATURE,
-                "top_p": TOP_P,
-                "top_k": TOP_K,
-                "max_output_tokens": MAX_OUTPUT_TOKENS,
-                "response_mime_type": RESPONSE_MIME_TYPE,
-                "response_schema": LLM_RESPONSE_SCHEMA,
-            },
+        self.generation_config = types.GenerateContentConfig(
+            temperature=TEMPERATURE,
+            top_p=TOP_P,
+            top_k=TOP_K,
+            max_output_tokens=MAX_OUTPUT_TOKENS,
+            response_mime_type=RESPONSE_MIME_TYPE,
+            response_json_schema=LLM_RESPONSE_SCHEMA,
         )
 
     # =====================================================
@@ -89,8 +84,10 @@ class LLMService:
 
         try:
 
-            response = self.model.generate_content(
-                contents=prompt
+            response = self.client.models.generate_content(
+                model=MODEL_NAME,
+                contents=prompt,
+                config=self.generation_config,
             )
             logger.info("Gemini response received successfully.")
 
@@ -100,9 +97,7 @@ class LLMService:
                     "Empty response received from Gemini."
                 )
 
-            return json.loads(
-                response.text
-            )
+            return response.parsed or json.loads(response.text)
 
         except json.JSONDecodeError:
 
@@ -115,4 +110,7 @@ class LLMService:
 
             raise LLMAnalysisError(
                 f"llm analysis failed: {str(exc)}"
-            )
+            ) from exc
+
+        finally:
+            self.client.close()

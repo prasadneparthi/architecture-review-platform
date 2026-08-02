@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+Account
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">
+
+        Account Settings
+
+    </h2>
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header">
+
+            <h5 class="mb-0 fw-semibold">
+
+                Account Information
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+            <table class="table table-borderless mb-0">
+                <tr>
+                    <td width="180">
+                        <strong>Username</strong>
+                    </td>
+                    <td>
+                        <span id="account-username"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Email</strong>
+                    </td>
+                    <td>
+                        <span id="account-email"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header">
+
+            <h5 class="mb-0">
+
+                Change Password
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <form id="change-password-form">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Current Password
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="old-password"
+                        class="form-control"
+                        required
+                    >
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        New Password
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="new-password"
+                        class="form-control"
+                        required
+                    >
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Confirm Password
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirm-password"
+                        class="form-control"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+
+                    Change Password
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="card border-danger shadow-sm">
+
+        <div class="card-header">
+
+            <h5 class="mb-0">
+
+                Danger Zone
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <p>
+
+                Deleting your account is permanent.
+                All review history will be removed.
+
+            </p>
+
+            <form id="delete-account-form">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Confirm Password
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="delete-password"
+                        class="form-control"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                >
+
+                    Delete My Account
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{% static 'js/account.js' %}"></script>
+
+{% endblock %}
