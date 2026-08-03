@@ -38,9 +38,17 @@ async function registerUser(event) {
     }
     else {
 
-        alert(JSON.stringify(data));
+        let message = "";
 
+        for (const field in data){
+
+            message += `${data[field][0]}\n`;
+
+        }
+
+        alert(message.trim());
     }
+
 
 }
 async function loginUser(event) {
